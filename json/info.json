@@ -1,0 +1,7 @@
+{
+  "box": "tdwsNi/debian9.1-amd64-docker",
+  "repository": "https://github.com/tdwsNi/packer-templates",
+  "author": "tdwsNi",
+  "contact": "Ni@tdwsNi.net",
+  "ni": "nee-wom"
+}
