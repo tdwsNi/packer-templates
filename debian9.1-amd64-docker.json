@@ -98,8 +98,7 @@
       {
         "type": "vagrant",
         "include": [
-          "json/info.json",
-          "json/metadata.json"
+          "json/info.json"
         ],
         "compression_level": "{{user `compression_level`}}",
         "output": "{{user `output_directory`}}/{{user `template_base`}}-{{user `template_config`}}.{{ .Provider }}.box"
