@@ -1,4 +1,16 @@
 ## Changelog
+*   ### 1.2.20170924
+    -   add vagrantfile template
+    -   fix the networking error prevents 'vagrant up'
+    -   script cleanup
+    -   change script order
+    -   move package installation to preseed
+    -   change apt mirror
+
+    *Build with [Packer](https://packer.io) [`v1.1.0`](https://github.com/hashicorp/packer/releases/tag/v1.1.0) and tested on [VMware Fusion](https://www.vmware.com/products/fusion.html) [`8.5.8`](https://docs.vmware.com/en/VMware-Fusion/8.0/rn/fusion-858-release-notes.html)*
+
+---
+
 *   ### 1.1.20170919
     -   [github repository](https://github.com/tdwsNi/packer-templates) up
     -   add [changelog](CHANGELOG.md)
