@@ -18,7 +18,7 @@
     "vcloud_user": "{{env `VAGRANT_CLOUD_USER`}}",
     "vcloud_token": "{{env `VAGRANT_CLOUD_TOKEN`}}",
     "build_ver": "{{isotime \"20060102\"}}",
-    "img_ver": "1.1",
+    "img_ver": "1.2",
     "compression_level": "9",
     "output_directory": "builds"
   },
@@ -59,14 +59,14 @@
       "vm_name": "{{user `template_base`}}-{{user `template_config`}}",
       "version": "{{user `vmx_version`}}",
       "output_directory": "packer-{{user `template_base`}}-{{user `template_config`}}-vmware",
+      "vmx_remove_ethernet_interfaces": true,
       "vmx_data": {
         "vhv.enable": "TRUE",
-        "cpuid.coresPerSocket": "1",
         "ethernet0.pciSlotNumber": "32",
+        "cpuid.coresPerSocket": "1",
         "memsize": "{{user `memory`}}",
         "numvcpus": "{{user `cpus`}}"
-      },
-      "vmx_remove_ethernet_interfaces": true
+      }
     }
   ],
   "provisioners": [
@@ -79,18 +79,18 @@
         "DOCKER_DAEMON_PORT={{user `docker_daemon_port`}}"
       ],
       "scripts": [
-        "scripts/update.sh",
-        "scripts/sshd.sh",
-        "scripts/networking.sh",
-        "scripts/sudoers.sh",
-        "scripts/grub.sh",
-        "scripts/vagrant.sh",
         "scripts/docker-ce.sh",
+        "scripts/update.sh",
         "scripts/vmware.sh",
+        "scripts/vagrant.sh",
+        "scripts/sshd.sh",
+        "scripts/sudoers.sh",
         "scripts/cleanup.sh",
         "scripts/minimize.sh"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "pause_before": "10s",
+      "expect_disconnect": true
     }
   ],
   "post-processors": [
@@ -100,8 +100,10 @@
         "include": [
           "json/info.json"
         ],
+        "vagrantfile_template": "Vagrantfile.tpl",
         "compression_level": "{{user `compression_level`}}",
-        "output": "{{user `output_directory`}}/{{user `template_base`}}-{{user `template_config`}}.{{ .Provider }}.box"
+        "output": "{{user `output_directory`}}/{{user `template_base`}}-{{user `template_config`}}.{{ .Provider }}.box",
+        "keep_input_artifact": false
       },
       {
         "type": "vagrant-cloud",
